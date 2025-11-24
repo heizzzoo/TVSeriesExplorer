@@ -1,155 +1,129 @@
-📱 TV Series Explorer
+TV Series Explorer
 
-Application Android développée en Kotlin / Jetpack Compose
+Projet Android – Jetpack Compose
 Auteurs : Clément.F & Julien.R
 
-📖 Description
+1. Présentation du projet
 
-TV Series Explorer est une application mobile permettant de rechercher des séries, consulter les séries les plus populaires, et afficher le détail complet d’une série grâce à l’API publique Episodate.
+TV Series Explorer est une application Android développée en Kotlin avec Jetpack Compose.
+Elle permet de rechercher des séries TV, d’afficher les plus populaires et de consulter le détail complet de chaque série.
 
-Le projet suit le cahier des charges imposé et respecte les bonnes pratiques Android modernes :
+L'application s'appuie sur l’API publique TVMaze / Episodate pour récupérer les données en temps réel.
 
-Jetpack Compose
+2. Fonctionnalités principales
+Recherche de séries
 
-Navigation Compose
+Barre de recherche intégrée en haut de l’écran.
 
-Architecture MVVM
+Saisie dynamique du nom d’une série.
+
+Résultats affichés sous forme de liste moderne (Jetpack Compose).
+
+Séries populaires
+
+Section dédiée aux séries les plus populaires.
+
+Récupération en temps réel via l’API.
+
+Affichage avec image, nom et statut.
+
+Détail d’une série
+
+Chaque série sélectionnée affiche :
+
+Image en haute résolution.
+
+Nom complet.
+
+Date de début.
+
+Statut (Running / Ended).
+
+Réseau TV (Netflix, HBO, etc.).
+
+Résumé complet.
+
+Bouton retour entièrement fonctionnel (navigation Compose).
+
+Mode sombre (si activé dans le système)
+
+Support automatique du mode sombre.
+
+Thème Material 3 basé sur isSystemInDarkTheme().
+
+3. Architecture du projet
+
+Le projet utilise une architecture moderne recommandée pour Android :
+
+Jetpack Compose pour l’UI
+
+MVVM (Model – ViewModel – Repository)
 
 Hilt (Dagger) pour l’injection de dépendances
 
-Appels API via Retrofit
+Retrofit + Gson pour l’appel API
 
-✨ Fonctionnalités principales
-🔍 Recherche de séries
+Navigation Compose pour la gestion des écrans
 
-Champ de recherche moderne en haut de l’écran
-
-Saisie du nom d’une série
-
-Requête API dynamique
-
-Affichage des résultats sous forme de liste
-
-Message d’erreur clair si aucun résultat ou problème réseau
-
-⭐ Séries populaires
-
-Section dédiée aux séries les plus consultées
-
-Liste visuelle moderne et responsive
-
-Navigation vers le détail d’une série
-
-📄 Détail d’une série
-
-Chaque série affiche :
-
-🖼️ Image d'affiche
-
-🎭 Nom complet
-
-📅 Date de début
-
-🔁 Statut (Running / Ended)
-
-📡 Réseau TV
-
-📝 Résumé complet
-
-🔙 Bouton retour fonctionnel (via Navigation Compose)
-
-🔚 Navigation
-
-Entièrement gérée via Navigation Compose
-
-Deux écrans :
-
-HomeScreen
-
-DetailsScreen
-
-Passage de paramètres (showId) sécurisé
-
-Bouton retour intégré dans la TopAppBar
-
-🎨 Bonus implémentés / en cours
-
-✨ Animations Jetpack Compose (préparées)
-
-🌙 Mode sombre prêt à être ajouté avec Material 3
-
-📦 Architecture propre (MVVM + repository)
-
-Si tu veux, je peux aussi intégrer directement le thème Dark/Light.
-
-🏗️ Architecture du projet
+4. Structure du code
 app/
  ├── data/
- │    ├── remote/        → API, Retrofit, DTO
- │    └── model/         → Modèles de données
+ │    ├── remote/
+ │    │     ├── EpisodateApi.kt
+ │    │     └── EpisodateModels.kt
+ │    └── repository/
+ │          └── TvShowsRepository.kt
+ │
+ ├── di/
+ │    └── NetworkModule.kt
  │
  ├── ui/
- │    ├── home/          → HomeScreen + ViewModel
- │    ├── details/       → DetailsScreen + ViewModel
- │    ├── navigation/    → NavHost, routes
- │    └── theme/         → Couleurs, typographies
+ │    ├── home/
+ │    │     ├── HomeScreen.kt
+ │    │     └── HomeViewModel.kt
+ │    ├── details/
+ │    │     ├── DetailsScreen.kt
+ │    │     └── DetailsViewModel.kt
+ │    ├── navigation/
+ │    │     └── NavRoutes.kt
+ │    └── theme/
+ │          ├── Color.kt
+ │          ├── Theme.kt
+ │          └── Type.kt
  │
- ├── di/                 → Modules Hilt
+ ├── MainActivity.kt
  └── TvSeriesExplorerApp.kt
 
-🔌 Backend API
+5. Backend API
 
-L’application utilise l’API gratuite :
+L'application consomme les endpoints suivants :
 
-➡️ https://www.episodate.com/api
+Séries populaires :
+https://www.episodate.com/api/most-popular?page=1
 
-Endpoints utilisés :
+Recherche :
+https://www.episodate.com/api/search?q={nom}
 
-/search?q=keyword
+Détails d’une série :
+https://www.episodate.com/api/show-details?q={id}
 
-/most-popular?page=1
-
-/show-details?q=ID
-
-🛠️ Technologies utilisées
+6. Outils et technologies
 
 Kotlin
 
-Jetpack Compose
+Jetpack Compose (Material3)
 
-Material 3
+Android Studio Electric Eel ou supérieur
+
+Hilt / Dagger
+
+Retrofit2 + Gson Converter
+
+Coil (chargement d’images)
 
 Navigation Compose
 
-Retrofit + Gson
 
-Hilt (Dagger)
+Vérifier que l’émulateur dispose d'une connexion internet.
 
-MVVM
-
-Coroutines + Flow
-
-Android Studio
-
-🚀 Installation (développeurs)
-
-Cloner le repo :
-
-git clone https://github.com/<TON-PSEUDO>/TVSeriesExplorer.git
-
-
-Ouvrir dans Android Studio
-
-Lancer un émulateur ou un appareil connecté
-
-Build & Run
-
-🐞 Problèmes connus
-
-L’émulateur Android nécessite un accès internet activé
-
-L’API Episodate peut parfois renvoyer des erreurs de réseau
-
-👥 Auteurs
-
-Clément.F & Julien.R
+Exécuter l'application avec le bouton "Run".
